@@ -65,7 +65,7 @@ X_valid, y_valid = X_series[:-N_TREINO], y_series[:-N_TREINO]
 #                    validation_data=(X_valid, y_valid))
 # # --------------------------------------------------
 
-ultimo_resultado = y_series[-1:]
+# ultimo_resultado = y_series[-1:]
 # print(ultimo_resultado)
 
 # Faz previsão da próxima dezena utilizando o ultimo resultado
@@ -97,14 +97,13 @@ history = model.fit(X_train, y_train_encoded, epochs=N_EPOCHS,
 validation_data=(X_valid, y_valid_encoded))
 tfjs.converters.save_keras_model(model, './assets/model')
 model.save('assets/model.h5')
-print('AAAAA ultimo_resultado',ultimo_resultado)
 
-previsao = model.predict(ultimo_resultado)
-# previsao = model.predict([[[10,19,11,22,47,21]]])
-print(len(previsao[0,-1]))
-dezenas_pred = previsao[0,-1,:]
-print(dezenas_pred)
+# previsao = model.predict(ultimo_resultado)
+# # previsao = model.predict([[[10,19,11,22,47,21]]])
+# print(len(previsao[0,-1]))
+# dezenas_pred = previsao[0,-1,:]
+# print(dezenas_pred)
 
-probabilidade_dezenas = pd.DataFrame({'Dezena': range(1,61),'Probabilidade' : dezenas_pred[:]*100}).sort_values(by=['Probabilidade'], ascending=False)
+# probabilidade_dezenas = pd.DataFrame({'Dezena': range(1,61),'Probabilidade' : dezenas_pred[:]*100}).sort_values(by=['Probabilidade'], ascending=False)
 
-print(probabilidade_dezenas)
+# print(probabilidade_dezenas)

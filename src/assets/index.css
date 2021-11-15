@@ -1,0 +1,40 @@
+#p-content {
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.disabled {
+  opacity: .4;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  opacity: .9;
+}
+
+body > div {
+  text-align: center;
+  padding: 20px;
+}
+
+button:not(.disabled):hover {
+  opacity: 1;
+}
+
+#result {
+  color: red;
+  padding: 10px;
+}
+#result table, #result td, #result th {
+  color: #333;
+  padding: 10px;
+  border: 1px solid #ccc;
+}

@@ -1,8 +1,3 @@
-const N_DEZENAS = 6;
-const N_NEURONIOS = 50;
-const N_EPOCHS = 50;
-const N_SORTEIOS = 40;
-const BATCH_SIZE = 32;
 var model;
 
 async function load() {

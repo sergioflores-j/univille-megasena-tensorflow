@@ -13,7 +13,6 @@ import tensorflowjs as tfjs
 df = pd.read_json("../db/megasena-v2.json")
 
 print(df.tail())
-# Obtem algumas informações básicas dos dados
 
 # Gera lista com todas dezenas
 dezenas = pd.DataFrame(df['d1'].tolist() + df['d2'].tolist() + df['d3'].tolist() + df['d4'].tolist() + df['d5'].tolist() + df['d6'].tolist(), columns=['numeros'])
@@ -25,15 +24,12 @@ print(frequencia_dezenas)
 
 # --------------------------------------------------
 
-# definição do modelo
+# Definição do modelo
 N_DEZENAS = 6
 N_NEURONIOS = 50
 N_EPOCHS = 50
 N_SORTEIOS = 40
 NUM_DEZENAS = 60
-
-# Note que aqui o modelo de declarado de outra forma, em forma de função
-# Este é apenas outra forma de declarar o modelo.
 
 model = tf.keras.Sequential([
     keras.layers.SimpleRNN(N_NEURONIOS, return_sequences=True, input_shape=[None, N_DEZENAS], activation="relu"),
@@ -44,8 +40,7 @@ model.summary()
 
 # --------------------------------------------------
 # Sequencia de resultados
-resultados = pd.DataFrame(df[['d1','d2','d3',
-                              'd4','d5','d6',]]).to_numpy()
+resultados = pd.DataFrame(df[['d1','d2','d3','d4','d5','d6',]]).to_numpy()
 N_RESULT = len(resultados)
 
 # X são as dezena dos ultimos N_SORTEIOS de entrada, Y são os N_SORTEIOS deslocados em uma posição para frente
@@ -56,7 +51,7 @@ ys = resultados[Is]
 X_series = ys[:, :-1].reshape(-1, N_SORTEIOS, N_DEZENAS)
 y_series = ys[:, 1:].reshape(-1, N_SORTEIOS, N_DEZENAS)
 
-#separa 70% dos dados para treino e restante para validação
+# Separa 70% dos dados para treino e restante para validação
 N_TREINO = int(0.7 * N_RESULT)
 X_train, y_train = X_series[:N_TREINO], y_series[:N_TREINO]
 X_valid, y_valid = X_series[:-N_TREINO], y_series[:-N_TREINO]
@@ -72,7 +67,6 @@ X_valid, y_valid = X_series[:-N_TREINO], y_series[:-N_TREINO]
 # previsao = model.predict(ultimo_resultado)
 # print(previsao[0,-1,:])
 
-# codifica dezenas para one-hot encoded
 def encode(C):
   x = np.zeros(NUM_DEZENAS,dtype=int)
   for val in C:
@@ -89,7 +83,7 @@ def encode_matrix(M):
 y_train_encoded = encode_matrix(y_train)
 y_valid_encoded = encode_matrix(y_valid)
 # Exemplo de como as dezenas são alteradas para classe.
-#Caso nas dezenas tenha o número 1 o primeiro elemento do array será 1. Se houver a dezena 10, o décimo elemento será 1.
+# Caso nas dezenas tenha o número 1 o primeiro elemento do array será 1. Se houver a dezena 10, o décimo elemento será 1.
 print(y_train[0,0])
 print(y_train_encoded[0,0])
 
